@@ -35,7 +35,9 @@ function addListId(){
 		document.querySelectorAll('li')[i].id = liID;
 		document.getElementById(liID).addEventListener('click', markDone);
 	}
-}
+};
+
+addListId();
 
 
 
@@ -70,16 +72,19 @@ function markDone(){
 		var doneList = document.createElement('ul');
 			doneList.id = 'myDoneList';
 		var doneHeader = document.createElement('h2');
-			doneHeader.textContent = "Done";
+			doneHeader.textContent = "Archive";
 		document.body.appendChild(doneHeader);	
 		document.body.appendChild(doneList);
 	}
 
 	var doneListText = document.createTextNode(this.textContent);
 	var doneListItem = document.createElement('li');
-		doneListItem.textContent = this.textContent;
+	var doneListSpan = document.createElement('span');
+		doneListSpan.style.backgroundColor = 'lightgreen';
+		doneListSpan.style.textDecoration = 'line-through'
+		doneListSpan.textContent = this.textContent;
+		doneListItem.appendChild(doneListSpan);
 	document.getElementById('myDoneList').appendChild(doneListItem);
-	//document.getElementById(doneItem).style.backgroundColor = 'lightgreen'
-	this.remove()
+	this.remove();
 	tasksDone++
 }
