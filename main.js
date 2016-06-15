@@ -14,10 +14,54 @@ Here are some bonus tasks to push your DOM knowledge!
 
 */
 
+
+document.getElementById('new-thing').focus();
+
+var newThingBtn = document.getElementById('new-thing-button')
+	newThingBtn.addEventListener('click', buttonClicked)
+
+
+var listItems = document.getElementById('my-list')
+	//listItems.addEventListener('click', markDone);
+
+
+var startList = function(){
+	return listItems.children.length
+}
+
+
+for(var i=0; i<startList(); i++){
+	var liID = 'blah'+i
+	document.querySelectorAll('li')[i].id = liID
+	document.getElementById(liID).addEventListener('click', markDone)
+}
+
+
+
 function buttonClicked(event) {
+	event.preventDefault();
+	startList();
+	var checkInput = document.getElementById('new-thing').value;
+	if (!!checkInput) {
+		var newItem = document.createElement('li');
+		var newText = document.createTextNode(checkInput);
+			newItem.appendChild(newText);
+		document.getElementById('my-list').appendChild(newItem)
+	}
+	document.getElementById('new-thing').value = ''
+}
+
+
+
+function addToList(list, text) {
 
 }
 
-function addToList(list, text) {
+
+function markDone(){
+	console.log('done', this.id);
+	var doneItem = this.id;
+
+	document.getElementById(doneItem).style.backgroundColor = 'lightgreen'
 
 }
