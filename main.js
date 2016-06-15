@@ -17,24 +17,26 @@ Here are some bonus tasks to push your DOM knowledge!
 
 document.getElementById('new-thing').focus();
 
+var tasksDone = 0;
+
 var newThingBtn = document.getElementById('new-thing-button')
 	newThingBtn.addEventListener('click', buttonClicked)
 
-
 var listItems = document.getElementById('my-list')
-	//listItems.addEventListener('click', markDone);
-
 
 var startList = function(){
 	return listItems.children.length
 }
 
 
-for(var i=0; i<startList(); i++){
-	var liID = 'blah'+i
-	document.querySelectorAll('li')[i].id = liID
-	document.getElementById(liID).addEventListener('click', markDone)
+function addListId(){
+	for(var i=0; i<startList(); i++){
+		var liID = 'doThis'+i;
+		document.querySelectorAll('li')[i].id = liID;
+		document.getElementById(liID).addEventListener('click', markDone);
+	}
 }
+
 
 
 
@@ -48,7 +50,8 @@ function buttonClicked(event) {
 			newItem.appendChild(newText);
 		document.getElementById('my-list').appendChild(newItem)
 	}
-	document.getElementById('new-thing').value = ''
+	document.getElementById('new-thing').value = '';
+	addListId()
 }
 
 
@@ -59,9 +62,24 @@ function addToList(list, text) {
 
 
 function markDone(){
-	console.log('done', this.id);
+	addListId();
 	var doneItem = this.id;
+	console.log('done', doneItem);
 
-	document.getElementById(doneItem).style.backgroundColor = 'lightgreen'
+	if(tasksDone===0){
+		var doneList = document.createElement('ul');
+			doneList.id = 'myDoneList';
+		var doneHeader = document.createElement('h2');
+			doneHeader.textContent = "Done";
+		document.body.appendChild(doneHeader);	
+		document.body.appendChild(doneList);
+	}
 
+	var doneListText = document.createTextNode(this.textContent);
+	var doneListItem = document.createElement('li');
+		doneListItem.textContent = this.textContent;
+	document.getElementById('myDoneList').appendChild(doneListItem);
+	//document.getElementById(doneItem).style.backgroundColor = 'lightgreen'
+	this.remove()
+	tasksDone++
 }
