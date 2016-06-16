@@ -9,18 +9,6 @@ var startList = function(){
 	return listItems.children.length
 }
 
-// Add ids to help with moving elements to archive
-/*
-function addListId(){
-	for(var i=0; i<startList(); i++){
-		var liID = 'doThis'+i;
-		document.querySelectorAll('li')[i].id = liID;
-		document.getElementById(liID).addEventListener('click', markDone);
-	}
-};
-addListId();
-*/
-
 for(var i=0; i<startList(); i++){
 	document.querySelectorAll('li')[i].addEventListener('click', markDone);
 }
@@ -55,41 +43,21 @@ function markDone(){
 		document.body.appendChild(doneHeader);	
 		document.body.appendChild(doneList);
 	}
-	// get text of list item to move to archive
-	var thisText = this.textContent;
-	// how many todo items are there?
-	var listLength = document.querySelectorAll('#my-list li').length;
-	// loop through list items to find right one
-	for(var i=0; i<listLength; i++){
-		if(document.querySelectorAll('#my-list li')[i].textContent === thisText){
-			var doneListText = document.createTextNode(this.textContent);
-			var doneListItem = document.createElement('li');
-			// span to control size of background colour
-			var doneListSpan = document.createElement('span');
-			// for practice. Would do this with css 
-				doneListSpan.style.backgroundColor = 'lightgreen';
-				doneListSpan.style.textDecoration = 'line-through';
-				doneListSpan.textContent = this.textContent;
-				doneListItem.appendChild(doneListSpan);
-			document.getElementById('myDoneList').appendChild(doneListItem);
-		}
-	}
+	// create new text node from todo text content
+	var doneListText = document.createTextNode(this.textContent);
+	var doneListItem = document.createElement('li');
+	// span to control size of background colour
+	var doneListSpan = document.createElement('span');
+	// for practice. Would do this with css 
+		doneListSpan.style.backgroundColor = 'lightgreen';
+		doneListSpan.style.textDecoration = 'line-through';
+		doneListSpan.textContent = this.textContent;
+		doneListItem.appendChild(doneListSpan);
+	document.getElementById('myDoneList').appendChild(doneListItem);
+		
+	
 	// remove from to do list
 	this.remove();
 	// add focus back to input field
 	document.getElementById('new-thing').focus();
 }
-
-
-
-
-
-
-
-
-
-/*
-function addToList(list, text) {
-
-}
-*/
