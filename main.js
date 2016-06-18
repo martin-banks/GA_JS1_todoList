@@ -1,17 +1,22 @@
-// make text input field active
-document.getElementById('new-thing').focus();
+
 
 var newThingBtn = document.getElementById('new-thing-button');
 	newThingBtn.addEventListener('click', buttonClicked);
 
+var getMyListItems = document.querySelectorAll('#my-list li');
+var getNewThing = document.getElementById('new-thing');
+
 // add event listeners to existing todo list items
-for(var i=0; i<document.querySelectorAll('#my-list li').length; i++){
-	document.querySelectorAll('#my-list li')[i].addEventListener('click', markDone);
+for(var i=0; i<getMyListItems.length; i++){
+	getMyListItems[i].addEventListener('click', markDone);
 };
 
+
+// make text input field active
+getNewThing.focus();
 function buttonClicked(event) {
 	event.preventDefault(); // prevent form/button default function (page reset)
-	var checkInput = document.getElementById('new-thing').value;
+	var checkInput = getNewThing.value;
 	if (!!checkInput) { // if input has content
 		var newItem = document.createElement('li');
 		var newText = document.createTextNode(checkInput);
@@ -22,9 +27,9 @@ function buttonClicked(event) {
 		alert("Nothing to do?");
 	};
 	// reset input field
-	document.getElementById('new-thing').value = '';
+	getNewThing.value = '';
 	// make input field active
-	document.getElementById('new-thing').focus();
+	getNewThing.focus();
 }
 
 
@@ -51,9 +56,9 @@ function markDone(){
 	// remove from to do list
 	this.remove();
 	// add focus back to input field
-	document.getElementById('new-thing').focus();
+	getNewThing.focus();
 	// display message if #my-list is empty
-	if (document.querySelectorAll('#my-list li').length === 0){
+	if (getMyListItems.length === 0){
 		alert('Everything is done!');
 	}
 }
